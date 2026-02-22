@@ -1,0 +1,456 @@
+/* Fonts (всегда в самом верху) */
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Poiret One", sans-serif;
+  overflow-x: hidden;
+  background: #1f2f30;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+.header{
+  height: 75vh;
+  min-height: 520px;
+  background: url("fon1.jpg") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.65) 0%,
+    rgba(0,0,0,0.35) 35%,
+    rgba(0,0,0,0.10) 60%,
+    rgba(0,0,0,0) 80%
+  );
+  pointer-events:none;
+  z-index: 1;
+}
+
+.header__bar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+
+  padding: 18px 40px;
+  color: #f3e7ec;
+
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.2px;
+}
+
+/* единая база типографики */
+.header__left,
+.header__right{
+  font-size: clamp(15px, 1vw, 17px);
+  line-height: 1.3;
+}
+
+.header__left{
+  display:flex;
+  align-items:center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* разделители как в референсе */
+.header__left > span:not(:last-child)::after{
+  content:"";
+  display:inline-block;
+  width:1px;
+  height:12px;
+  background: rgba(243,231,236,.25);
+  margin: 0 16px;
+  position: relative;
+  top: 2px;
+}
+
+.brand,.time,.address,.phone,.header-nav a{ font-size: inherit; }
+
+.brand{ opacity: .95; }
+.time{ opacity: .82; }
+.address{ opacity: .78; }
+
+.address{
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header__right{
+  display:flex;
+  align-items:center;
+  gap: 28px;
+}
+
+.header-nav{
+  display:flex;
+  gap: 18px;
+}
+
+.phone,
+.header-nav a{
+  color:#f3e7ec;
+  text-decoration:none;
+  position:relative;
+  transition: opacity .2s ease;
+}
+.phone{ opacity:.90; }
+.header-nav a{ opacity:.85; }
+
+.phone::after,
+.header-nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:1px;
+  background: rgba(243,231,236,0.9);
+  transition: width .25s ease;
+}
+.phone:hover,
+.header-nav a:hover{ opacity:.95; }
+.phone:hover::after,
+.header-nav a:hover::after{ width:100%; }
+
+/* =========================
+   HERO TEXT (цитата)
+   ВАЖНО: опускаем цитату и сокращаем “пустоту”
+   ========================= */
+.text{
+  background: #1f2f30;
+  position: relative;
+  z-index: 2;
+
+  /* меньше воздуха */
+  padding: 80px 8vw 40px;
+
+  /* перекрытие картинки, но мягче */
+  margin-top: -90px;
+}
+
+.text__inner{
+  max-width: 980px;
+  margin: 0 auto;
+
+  /* раньше было -100/-120 — из-за этого всё “улетало” */
+  transform: translateY(-60px);
+}
+
+.hero-title{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(52px, 6vw, 96px);
+  line-height: 0.98;
+  letter-spacing: 0.5px;
+  color: #f3e7ec;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+
+  /* чуть опускаем сам заголовок */
+  margin-top: 10px;
+}
+
+.first-line{
+  color: #c04b5e;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-shadow:
+    0 2px 10px rgba(0,0,0,0.55),
+    0 0 1px rgba(0,0,0,0.75);
+}
+
+.text__desc{
+  margin-top: 18px;
+  max-width: 560px;
+  color: rgba(243,231,236,0.82);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* =========================
+   FEATURES (карточки)
+   ВАЖНО: убираем скругления полностью
+   ========================= */
+.features{
+  background: #1f2f30;
+
+  /* чуть дальше от текста */
+  margin-top: 20px;
+
+  /* больше воздуха по бокам */
+  padding: 0 10vw 160px;
+}
+.features__inner{
+  max-width: 1250px; /* шире контейнер */
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1.15fr; /* правая чуть шире */
+  
+  column-gap: 120px; /* ВОТ ЭТО делает дороже */
+  row-gap: 120px;    /* расстояние между рядами */
+
+  align-items: start;
+}
+
+.feature{
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feature__media{
+  position: relative;
+  overflow: hidden;
+
+  /* СКРУГЛЕНИЕ УБРАЛИ */
+  border-radius: 0;
+  clip-path: none;
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  background: #0b0f10;
+}
+
+/* высоты карточек */
+.feature__media--sm{ height: 380px; }
+.feature__media--md{ height: 450px; }
+.feature__media--lg{ height: 520px; }
+
+.feature__img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit: cover;
+
+  /* на всякий */
+  border-radius: 0;
+}
+
+/* если нужно приподнять букет (чтобы не резало лицо/ленту) */
+.feature__img--bouquet{
+  object-position: center 25%;
+}
+
+.feature__tag{
+  position:absolute;
+  top:18px;
+  right:18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 42px;
+  letter-spacing: 1px;
+  color: rgba(243,231,236,0.9);
+  text-shadow: 0 10px 25px rgba(0,0,0,0.55);
+}
+
+.feature__text{
+  color: rgba(243,231,236,0.82);
+  font-size: 16px;
+  line-height: 1.6;
+
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.footer{
+  position: relative;
+  background: #101717;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.footer__bg{
+  position:absolute;
+  inset:0;
+  background: url("bouquet2.jpg") center/cover no-repeat;
+  filter: contrast(1.05) brightness(0.75);
+  transform: scale(1.02);
+}
+
+.footer__bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.75) 60%,
+    rgba(0,0,0,0.85) 100%
+  );
+}
+
+.footer__content{
+  position: relative;
+  z-index: 2;
+  padding: 90px 8vw 60px;
+  color: #f3e7ec;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer__title{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.2vw, 54px);
+  line-height: 1.05;
+  margin-bottom: 28px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+.footer__contacts{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+  font-size: 16px;
+  opacity: .9;
+}
+
+.footer__item{ opacity: .85; }
+
+.footer__link{
+  color:#f3e7ec;
+  text-decoration:none;
+  position:relative;
+  opacity:.9;
+}
+
+.footer__link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:1px;
+  background: rgba(243,231,236,0.85);
+  transition: width .25s ease;
+}
+
+.footer__link:hover{ opacity: 1; }
+.footer__link:hover::after{ width: 100%; }
+
+.footer__social{
+  display:flex;
+  gap: 14px;
+  margin-left: 6px;
+}
+
+.footer__note{
+  margin-top: 26px;
+  opacity: 0.6;
+  font-size: 13px;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 900px){
+  .text{
+    margin-top: -70px;
+    padding: 70px 6vw 30px;
+  }
+  .text__inner{
+    transform: translateY(-45px);
+  }
+
+  .features{
+    margin-top: 0;
+    padding: 0 6vw 70px;
+  }
+
+  .features__inner{
+    grid-template-columns: 1fr;
+  }
+
+  .feature__media--sm,
+  .feature__media--md,
+  .feature__media--lg{
+    height: 360px;
+  }
+}
+
+@media (max-width: 700px){
+  .header{
+    height: 72vh;
+    min-height: 480px;
+  }
+
+  .header__bar{
+    padding: 14px 16px;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header__left{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .header__left > span::after{ content:none; }
+
+  .address{
+    max-width: 100%;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .header__right{ gap: 14px; }
+  .header-nav{ gap: 14px; }
+
+  .text{
+    margin-top: -60px;
+    padding: 60px 6vw 25px;
+  }
+
+  .text__inner{
+    transform: translateY(-35px);
+  }
+
+  .text__desc{
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 901px){
+
+  .features__inner{
+    align-items: start; /* отключаем выравнивание по линии */
+  }
+
+  /* правая колонка чуть ниже */
+  .feature:nth-child(2),
+  .feature:nth-child(4){
+    transform: translateY(120px); /* можно 40–80px */
+  }
+
+  /* добавляем воздуха снизу, чтобы не обрезалось */
+  .features{
+    padding-bottom: 150px;
+  }
+}
