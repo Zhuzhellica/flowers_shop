@@ -58,7 +58,7 @@ body{
   letter-spacing: 0.2px;
 }
 
-/* единая база типографики */
+
 .header__left,
 .header__right{
   font-size: clamp(15px, 1vw, 17px);
@@ -72,7 +72,7 @@ body{
   flex-wrap: wrap;
 }
 
-/* разделители как в референсе */
+
 .header__left > span:not(:last-child)::after{
   content:"";
   display:inline-block;
@@ -134,58 +134,83 @@ body{
 .phone:hover::after,
 .header-nav a:hover::after{ width:100%; }
 
-/* =========================
-   HERO TEXT (цитата)
-   ВАЖНО: опускаем цитату и сокращаем “пустоту”
-   ========================= */
-.text{
-  background: #1f2f30;
-  position: relative;
-  z-index: 2;
+/* ОСНОВА*/
+/*ОСНОВА*/
 
-  /* меньше воздуха */
-  padding: 80px 8vw 40px;
+.text h1{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(52px, 6vw, 92px);
+  line-height: 1.08; 
+  letter-spacing: 0.6px;
 
-  /* перекрытие картинки, но мягче */
-  margin-top: -90px;
+  color: #f3e7ec;
+  text-shadow: 0 6px 25px rgba(0,0,0,0.55);
+
+  margin-bottom: 40px; 
 }
 
-.text__inner{
-  max-width: 980px;
-  margin: 0 auto;
+.hero{
+  background: #1f2f30;
+  padding: 140px 8vw 60px; 
+}
 
-  /* раньше было -100/-120 — из-за этого всё “улетало” */
-  transform: translateY(-60px);
+.hero__inner{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero__grid{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr; 
+  gap: 56px;
+  align-items: end;
+}
+
+.hero__title{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 1.02;
+  letter-spacing: 0.6px;
+  color: #f3e7ec;
+  text-shadow: 0 6px 26px rgba(0,0,0,0.55);
+  margin: 0;
 }
 
 .hero-title{
   font-family: "Cormorant Garamond", serif;
   font-weight: 400;
-  font-size: clamp(52px, 6vw, 96px);
-  line-height: 0.98;
+  font-size: clamp(52px, 5.5vw, 88px);
+  line-height: 1.02; 
   letter-spacing: 0.5px;
   color: #f3e7ec;
   text-shadow: 0 4px 20px rgba(0,0,0,0.5);
 
-  /* чуть опускаем сам заголовок */
   margin-top: 10px;
 }
 
 .first-line{
   color: #c04b5e;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.3px;
   text-shadow:
     0 2px 10px rgba(0,0,0,0.55),
     0 0 1px rgba(0,0,0,0.75);
 }
 
-.text__desc{
-  margin-top: 18px;
-  max-width: 560px;
-  color: rgba(243,231,236,0.82);
+.hero__desc{
+  max-width: 360px;
+  margin-top: -30px;     
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+.hero__lead{
+  margin: 0 0 20px;
+  color: rgba(243,231,236,0.78);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 /* =========================
@@ -201,18 +226,23 @@ body{
   /* больше воздуха по бокам */
   padding: 0 10vw 160px;
 }
+
+.features{
+  background: #1f2f30;
+  padding: 40px 8vw 110px;
+}
+
 .features__inner{
-  max-width: 1250px; /* шире контейнер */
+  max-width: 1100px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: 1fr 1.15fr; /* правая чуть шире */
-  
-  column-gap: 120px; /* ВОТ ЭТО делает дороже */
-  row-gap: 120px;    /* расстояние между рядами */
-
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px; /* шире, “дороже” */
+  row-gap: 70px;    /* больше воздуха */
   align-items: start;
 }
+
 
 .feature{
   display:flex;
@@ -369,27 +399,47 @@ body{
    RESPONSIVE
    ========================= */
 @media (max-width: 900px){
-  .text{
-    margin-top: -70px;
-    padding: 70px 6vw 30px;
+  .hero{
+    padding: 110px 6vw 40px;
   }
-  .text__inner{
-    transform: translateY(-45px);
+  .hero__grid{
+    grid-template-columns: 1fr;
+    gap: 26px;
+    align-items: start;
+  }
+  .hero__desc{
+    max-width: 520px;
+    padding-bottom: 0;
   }
 
   .features{
-    margin-top: 0;
-    padding: 0 6vw 70px;
+    padding: 30px 6vw 90px;
   }
-
   .features__inner{
     grid-template-columns: 1fr;
+    row-gap: 50px;
+  }
+  .feature:nth-child(2),
+  .feature:nth-child(3){
+    margin-top: 0; /* ступеньку отключаем на планшете/мобиле */
   }
 
-  .feature__media--sm,
-  .feature__media--md,
-  .feature__media--lg{
-    height: 360px;
+  .feature--small .feature__media,
+  .feature--tall .feature__media{
+    height: 420px;
+  }
+}
+
+@media (max-width: 700px){
+  .hero{
+    padding: 95px 6vw 30px;
+  }
+  .hero__title{
+    font-size: clamp(40px, 9vw, 56px);
+    line-height: 1.08;
+  }
+  .hero__lead{
+    font-size: 14px;
   }
 }
 
@@ -453,4 +503,80 @@ body{
   .features{
     padding-bottom: 150px;
   }
+}
+.hero{
+  background: #1f2f30;
+  padding: 120px 8vw 70px;
+  margin-top: -100px;         /* если хочешь “перекрытие” под шапку */
+  position: relative;
+  z-index: 2;
+}
+
+.hero__inner{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero__grid{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: center;        /* чтобы текст справа был “на уровне” */
+}
+
+/* заголовок */
+.hero__title{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 1.02;
+  letter-spacing: 0.6px;
+  color: #f3e7ec;
+  text-shadow: 0 6px 26px rgba(0,0,0,0.55);
+  margin: 0;
+}
+
+/* красная строка */
+.first-line{
+  color: #c04b5e;
+  font-weight: 600;
+  text-shadow:
+    0 2px 10px rgba(0,0,0,0.55),
+    0 0 1px rgba(0,0,0,0.75);
+}
+
+/* описание справа */
+.hero__desc{
+  max-width: 360px;
+}
+
+.hero__lead{
+  margin: 0 0 18px;
+  color: rgba(243,231,236,0.78);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* адаптив */
+@media (max-width: 900px){
+  .hero{
+    padding: 90px 6vw 60px;
+    margin-top: -70px;
+  }
+
+  .hero__grid{
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .hero__desc{
+    max-width: 520px;
+  }
+}
+.hero__title{
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin: 0 !important;
 }
